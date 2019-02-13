@@ -5,7 +5,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import rs.tafilovic.movieinfo.R;
@@ -20,8 +22,8 @@ public class DetailsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CastsAdapter castsAdapter;
     private DetailsViewModel detailsViewModel;
-    private TextView tvTitle;
     private ImageView ivPoster;
+    private Toolbar toolbar;
 
     private final String baseImagePath = "https://image.tmdb.org/t/p/w500";
 
@@ -37,8 +39,9 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         recyclerView = findViewById(R.id.recycler);
-        tvTitle = findViewById(R.id.tvTitle);
         ivPoster = findViewById(R.id.ivPoster);
     }
 
@@ -49,13 +52,15 @@ public class DetailsActivity extends AppCompatActivity {
             posterPath = baseImagePath + bundle.getString(Const.MOVIE_POSTER);
             movieId = bundle.getInt(Const.MOVIE_ID);
 
-            tvTitle.setText(title);
+            if (getSupportActionBar() != null)
+                getSupportActionBar().setTitle(title);
 
             castsAdapter = new CastsAdapter();
             detailsViewModel = ViewModelProviders.of(this, new DetailsViewModelFactory(movieId)).get(DetailsViewModel.class);
             detailsViewModel.getCastsLiveData().observe(this, casts -> castsAdapter.update(casts));
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
+            recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
             recyclerView.setAdapter(castsAdapter);
 
             GlideApp.with(ivPoster)

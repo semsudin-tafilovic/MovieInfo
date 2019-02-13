@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import rs.tafilovic.movieinfo.R;
@@ -53,7 +54,7 @@ public class MostPopularFragment extends Fragment implements ClickCallback {
     private void init(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-
+        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         adapter = new MoviesListAdapter(this);
 
         popularViewModel = ViewModelProviders.of(this).get(PopularViewModel.class);
