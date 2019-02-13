@@ -1,4 +1,4 @@
-package rs.tafilovic.movieinfo.ui.fragment.adapter;
+package rs.tafilovic.movieinfo.adapter;
 
 import android.content.Context;
 

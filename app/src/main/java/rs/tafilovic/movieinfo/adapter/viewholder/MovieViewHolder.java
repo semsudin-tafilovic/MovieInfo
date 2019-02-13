@@ -1,7 +1,9 @@
-package rs.tafilovic.movieinfo.ui.fragment.adapter.viewholder;
+package rs.tafilovic.movieinfo.adapter.viewholder;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,7 +21,9 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
     private ImageView ivPoster;
     private String baseImagePath = "https://image.tmdb.org/t/p/w500";
 
-    public static MovieViewHolder init(View view) {
+
+    public static MovieViewHolder init(ViewGroup parent) {
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.row_preview_movie, parent, false);
         return new MovieViewHolder(view);
     }
 
@@ -40,5 +44,8 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
         tvRating = itemView.findViewById(R.id.tvRating);
         tvGenre = itemView.findViewById(R.id.tvGenre);
         ivPoster = itemView.findViewById(R.id.ivPoster);
+        itemView.setOnClickListener(v -> {
+
+        });
     }
 }

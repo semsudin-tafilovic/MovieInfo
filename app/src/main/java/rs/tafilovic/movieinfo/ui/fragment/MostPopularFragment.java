@@ -1,27 +1,30 @@
 package rs.tafilovic.movieinfo.ui.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import rs.tafilovic.movieinfo.R;
-import rs.tafilovic.movieinfo.ui.fragment.adapter.MoviesListAdapter;
+import rs.tafilovic.movieinfo.adapter.MoviesListAdapter;
+import rs.tafilovic.movieinfo.model.Result;
+import rs.tafilovic.movieinfo.ui.ClickCallback;
+import rs.tafilovic.movieinfo.ui.activity.DetailsActivity;
+import rs.tafilovic.movieinfo.util.Const;
 import rs.tafilovic.movieinfo.viewmodel.PopularViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MostPopularFragment extends Fragment {
+public class MostPopularFragment extends Fragment implements ClickCallback {
 
-    private static final String TAG=MostPopularFragment.class.getSimpleName();
+    private static final String TAG = MostPopularFragment.class.getSimpleName();
 
     private PopularViewModel popularViewModel;
     private MoviesListAdapter adapter;
@@ -49,11 +52,11 @@ public class MostPopularFragment extends Fragment {
 
     private void init(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getContext());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
 
-        adapter = new MoviesListAdapter();
+        adapter = new MoviesListAdapter(this);
 
-        popularViewModel= ViewModelProviders.of(this).get(PopularViewModel.class);
+        popularViewModel = ViewModelProviders.of(this).get(PopularViewModel.class);
         popularViewModel.getPopularLiveData().observe(this, results -> adapter.submitList(results));
         popularViewModel.getNetworkLoadStatus().observe(this, state -> {
             // update progress or something
@@ -63,4 +66,14 @@ public class MostPopularFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onClick(Result movie) {
+        if (movie != null) {
+            Intent intent = new Intent(getContext(), DetailsActivity.class);
+            intent.putExtra(Const.MOVIE_TITLE, movie.getTitle());
+            intent.putExtra(Const.MOVIE_POSTER, movie.getPosterPath());
+            intent.putExtra(Const.MOVIE_ID, movie.getId());
+            startActivity(intent);
+        }
+    }
 }

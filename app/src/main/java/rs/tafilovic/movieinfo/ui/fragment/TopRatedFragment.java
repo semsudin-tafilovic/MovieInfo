@@ -1,11 +1,13 @@
 package rs.tafilovic.movieinfo.ui.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.function.Function;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,13 +15,17 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import rs.tafilovic.movieinfo.R;
-import rs.tafilovic.movieinfo.ui.fragment.adapter.MoviesListAdapter;
+import rs.tafilovic.movieinfo.adapter.MoviesListAdapter;
+import rs.tafilovic.movieinfo.model.Result;
+import rs.tafilovic.movieinfo.ui.ClickCallback;
+import rs.tafilovic.movieinfo.ui.activity.DetailsActivity;
+import rs.tafilovic.movieinfo.util.Const;
 import rs.tafilovic.movieinfo.viewmodel.TopRatedViewModel;
 
 /**
  * Class to present list of Top rated movies
  */
-public class TopRatedFragment extends Fragment {
+public class TopRatedFragment extends Fragment implements ClickCallback {
 
     private static final String TAG=TopRatedFragment.class.getSimpleName();
 
@@ -50,7 +56,7 @@ public class TopRatedFragment extends Fragment {
     private void init(View view) {
         RecyclerView recyclerView = view.findViewById(R.id.recycler);
         LinearLayoutManager layoutManager=new LinearLayoutManager(getContext());
-        adapter = new MoviesListAdapter();
+        adapter = new MoviesListAdapter(this);
 
         topRatedViewModel=ViewModelProviders.of(this).get(TopRatedViewModel.class);
         topRatedViewModel.getTopRatedLiveData().observe(this, results -> adapter.submitList(results));
@@ -62,4 +68,14 @@ public class TopRatedFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    public void onClick(Result movie) {
+        if(movie!=null){
+            Intent intent = new Intent(getContext(), DetailsActivity.class);
+            intent.putExtra(Const.MOVIE_TITLE, movie.getTitle());
+            intent.putExtra(Const.MOVIE_POSTER, movie.getPosterPath());
+            intent.putExtra(Const.MOVIE_ID, movie.getId());
+            startActivity(intent);
+        }
+    }
 }

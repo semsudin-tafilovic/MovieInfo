@@ -8,7 +8,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import rs.tafilovic.movieinfo.R;
-import rs.tafilovic.movieinfo.ui.fragment.adapter.MovieFragmentsPagerAdapter;
+import rs.tafilovic.movieinfo.adapter.MovieFragmentsPagerAdapter;
 
 import android.os.Bundle;
 import android.view.Menu;
