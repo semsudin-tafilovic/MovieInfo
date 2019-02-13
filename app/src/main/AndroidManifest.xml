@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".ui.activity.DetailsActivity"></activity>
+        <activity
+            android:name=".ui.activity.DetailsActivity"
+            android:theme="@style/FullScreenTheme" />
         <activity
             android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"

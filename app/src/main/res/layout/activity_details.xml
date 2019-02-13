@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     app:layout_scrollFlags="scroll|enterAlways">
 
-    <androidx.core.widget.NestedScrollView
+<!--    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -18,8 +18,8 @@
             <ImageView
                 android:id="@+id/ivPoster"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="centerCrop"
+                android:layout_height="300dp"
+                android:scaleType="center"
                 tools:src="@drawable/lady_bird" />
 
 
@@ -41,6 +41,6 @@
 
             <include layout="@layout/recycler_layout" />
         </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+<!--    </androidx.core.widget.NestedScrollView>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
