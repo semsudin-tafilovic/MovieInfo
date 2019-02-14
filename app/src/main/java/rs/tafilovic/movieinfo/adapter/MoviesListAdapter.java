@@ -28,7 +28,7 @@ public class MoviesListAdapter extends PagedListAdapter<Result, MovieViewHolder>
         holder.bind(getItem(position));
         holder.itemView.setOnClickListener(v -> {
             if (callback != null) {
-                callback.onClick(getItem(holder.getAdapterPosition()));
+                callback.onClick(getItem(holder.getAdapterPosition()), holder.itemView);
             }
         });
     }

@@ -7,4 +7,12 @@
 
     <include layout="@layout/recycler_layout" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
 </FrameLayout>
